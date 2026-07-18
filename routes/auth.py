@@ -24,9 +24,11 @@ auth_bp = Blueprint("auth", __name__)
 # Home
 # ==========================
 
-@auth_bp.route("/")
+from flask import redirect
+
+@app.route("/")
 def home():
-    return "Store Rating System is Running!"
+    return redirect("/login")
 
 
 # ==========================

@@ -1,5 +1,17 @@
-USE store_rating_system;
+-- Active: 1784396333819@@mysql-5fdb1a0-chandananlchandana-2388.j.aivencloud.com@21645@defaultdb
+USE defaultdb;
 
+SELECT DATABASE();
+
+SHOW TABLES;
+
+CREATE TABLE test (
+    id INT PRIMARY KEY
+);
+
+SHOW TABLES;
+
+DROP TABLE test;
 INSERT INTO users (name,email,password,address,role)
 VALUES
 (
@@ -9,3 +21,5 @@ VALUES
 'Bangalore',
 'ADMIN'
 );
+
+SELECT * FROM users;

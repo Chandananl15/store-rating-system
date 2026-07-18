@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS store_rating_system;
 CREATE DATABASE store_rating_system;
 USE store_rating_system;
 
+USE defaultdb;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(60) NOT NULL,
@@ -33,3 +34,4 @@ CREATE TABLE ratings (
         ON DELETE CASCADE,
     UNIQUE(user_id, store_id)
 );
+
