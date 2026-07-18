@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+Store Details
+{% endblock %}
+
+{% block content %}
+
+<h1>Store Details</h1>
+
+<hr>
+
+<p><strong>Name:</strong> {{ store.name }}</p>
+
+<p><strong>Email:</strong> {{ store.email }}</p>
+
+<p><strong>Address:</strong> {{ store.address }}</p>
+
+<p><strong>Owner:</strong> {{ store.owner.name }}</p>
+
+<p><strong>Average Rating:</strong> {{ average_rating }}</p>
+
+<h3>Users Who Rated</h3>
+
+<table border="1">
+
+<tr>
+
+<th>User</th>
+
+<th>Rating</th>
+
+</tr>
+
+{% for rating in store.ratings %}
+
+<tr>
+
+<td>{{ rating.user.name }}</td>
+
+<td>{{ rating.rating }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/admin/stores">
+
+Back
+
+</a>
+
+{% endblock %}

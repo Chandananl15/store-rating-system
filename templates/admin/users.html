@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Users
+{% endblock %}
+
+{% block content %}
+
+<h1>Users</h1>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search..."
+        value="{{ search }}"
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<br>
+
+<table border="1">
+
+<tr>
+
+<th>
+<a href="?search={{ search }}&sort=name&order={% if sort=='name' and order=='asc' %}desc{% else %}asc{% endif %}">
+Name
+</a>
+</th>
+
+<th>
+<a href="?search={{ search }}&sort=role&order={% if sort=='role' and order=='asc' %}desc{% else %}asc{% endif %}">
+Role
+</a>
+</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for user in users %}
+
+<tr>
+
+<td>{{ user.name }}</td>
+
+<td>{{ user.role }}</td>
+
+<td>
+    <a href="/admin/user/{{ user.id }}">
+        View
+    </a>
+    
+    <a href="/admin/user/{{ user.id }}/delete"
+        onclick="return confirm('Delete this user?');">
+         Delete
+    </a>
+    
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

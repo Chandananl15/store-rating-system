@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+Store Owner Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Store Owner Dashboard</h1>
+
+<hr>
+
+{% if store %}
+
+<h2>{{ store.name }}</h2>
+
+<p>
+
+<b>Store Email :</b>
+
+{{ store.email }}
+
+</p>
+
+<p>
+
+<b>Store Address :</b>
+
+{{ store.address }}
+
+</p>
+
+<p>
+Average Rating :
+<strong>{{ average_rating }}</strong>
+</p>
+
+<h3>Users Who Rated</h3>
+
+<table border="1">
+
+<tr>
+
+<th>User</th>
+
+<th>Rating</th>
+
+</tr>
+
+{% for rating in store.ratings %}
+
+<tr>
+
+<td>{{ rating.user.name }}</td>
+
+<td>{{ rating.rating }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<h2>Welcome {{ current_user.name }} 👋</h2>
+
+<hr>
+
+<p>
+    <b>No store has been assigned to your account yet.</b>
+</p>
+
+<p>
+    Please contact the administrator to assign a store.
+</p>
+
+<p>
+
+<b>Total Ratings :</b>
+
+{{ store.ratings|length }}
+
+</p>
+
+<br>
+
+<a href="/logout">Logout</a>
+
+{% endif %}
+
+<br>
+
+<a href="/logout">
+Logout
+</a>
+
+{% endblock %}

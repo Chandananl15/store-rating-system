@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+User Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome {{ current_user.name }} 👋</h1>
+
+<hr>
+
+<p>
+    Browse stores, give ratings and manage your account.
+</p>
+
+<br>
+
+<p>
+    <a href="/user/stores">🏪 View Stores</a>
+</p>
+
+<p>
+    <a href="/user/change-password">🔒 Change Password</a>
+</p>
+
+<p>
+    <a href="/logout">🚪 Logout</a>
+</p>
+
+{% endblock %}

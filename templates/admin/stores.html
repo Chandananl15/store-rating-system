@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}
+Stores
+{% endblock %}
+
+{% block content %}
+
+<h1>Stores</h1>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by Name, Email or Address"
+        value="{{ search }}"
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<br>
+
+<table border="1">
+
+<tr>
+
+<th>
+<a href="?search={{ search }}&sort=name&order={% if sort=='name' and order=='asc' %}desc{% else %}asc{% endif %}">
+Store Name
+</a>
+</th>
+
+<th>
+<a href="?search={{ search }}&sort=email&order={% if sort=='email' and order=='asc' %}desc{% else %}asc{% endif %}">
+Email
+</a>
+</th>
+
+<th>
+<a href="?search={{ search }}&sort=address&order={% if sort=='address' and order=='asc' %}desc{% else %}asc{% endif %}">
+Address
+</a>
+</th>
+
+<th>Owner</th>
+
+<th>Average Rating</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for store in stores %}
+
+<tr>
+
+<td>{{ store.name }}</td>
+
+<td>{{ store.email }}</td>
+
+<td>{{ store.address }}</td>
+
+<td>{{ store.owner }}</td>
+
+<td>{{ store.average_rating }}</td>
+
+<td>
+    <a href="/admin/store/{{ store.id }}">
+        View
+    </a>
+    |
+    <a href="/admin/store/{{ store.id }}/delete"
+       onclick="return confirm('Are you sure you want to delete this store?');">
+        Delete
+    </a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

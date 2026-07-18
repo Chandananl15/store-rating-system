@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Store
+{% endblock %}
+
+{% block content %}
+
+<h2>Add Store</h2>
+
+<form method="POST">
+
+    <label>Store Name</label><br>
+    <input type="text" name="name" required>
+
+    <br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" required>
+
+    <br><br>
+
+    <label>Address</label><br>
+    <textarea name="address" rows="4" cols="30" required></textarea>
+
+    <br><br>
+
+    <label>Store Owner</label><br>
+
+    <select name="owner_id">
+
+        {% for owner in owners %}
+
+        <option value="{{ owner.id }}">
+            {{ owner.name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Create Store
+    </button>
+
+</form>
+
+{% endblock %}

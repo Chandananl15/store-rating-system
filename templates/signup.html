@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Signup
+{% endblock %}
+
+{% block content %}
+
+<h2>Signup</h2>
+
+<form method="POST">
+
+    <label>Name</label><br>
+    <input type="text" name="name" required>
+
+    <br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" required>
+
+    <br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="password" required>
+
+    <br><br>
+
+    <label>Address</label><br>
+    <textarea name="address" rows="4" cols="30" required></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Create Account
+    </button>
+
+</form>
+
+<br>
+
+<a href="/login">
+    Already have an account? Login
+</a>
+
+{% endblock %}

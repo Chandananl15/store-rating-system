@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Admin Dashboard</h1>
+
+<hr>
+
+<h3>Total Users : {{ total_users }}</h3>
+
+<h3>Total Stores : {{ total_stores }}</h3>
+
+<h3>Total Ratings : {{ total_ratings }}</h3>
+
+<br>
+
+<a href="/admin/add-user">
+    Add User
+</a>
+
+<br><br>
+
+<a href="/logout">
+    Logout
+</a>
+
+<br><br>
+
+<a href="/admin/add-store">
+    Add Store
+</a>
+
+<br><br>
+
+<a href="/admin/stores">
+
+View Stores
+
+</a>
+
+<br><br>
+
+<a href="/admin/users">
+    View Users
+</a>
+
+<h2>Dashboard</h2>
+
+<hr>
+
+<h3>Total Users : {{ total_users }}</h3>
+
+<h3>Total Stores : {{ total_stores }}</h3>
+
+<h3>Total Ratings : {{ total_ratings }}</h3>
+
+{% endblock %}
+

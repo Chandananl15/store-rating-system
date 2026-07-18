@@ -1,0 +1,3 @@
+CREATE DATABASE store_rating_system;
+
+SHOW DATABASES;

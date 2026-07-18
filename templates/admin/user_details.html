@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+User Details
+{% endblock %}
+
+{% block content %}
+
+<h1>User Details</h1>
+
+<hr>
+
+<p><strong>Name:</strong> {{ user.name }}</p>
+
+<p><strong>Email:</strong> {{ user.email }}</p>
+
+<p><strong>Address:</strong> {{ user.address }}</p>
+
+<p><strong>Role:</strong> {{ user.role }}</p>
+
+{% if store %}
+
+<hr>
+
+<h3>Store Information</h3>
+
+<p><strong>Store:</strong> {{ store.name }}</p>
+
+<p><strong>Average Rating:</strong> {{ average_rating }}</p>
+
+{% endif %}
+
+<br>
+
+<a href="/admin/users">
+
+Back
+
+</a>
+
+
+{% endblock %}

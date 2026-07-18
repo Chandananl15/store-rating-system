@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}
+Stores
+{% endblock %}
+
+{% block content %}
+
+<h1>Stores</h1>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Store"
+        value="{{ request.args.get('search','') }}">
+
+    <button type="submit">
+
+        Search
+
+    </button>
+
+</form>
+
+<br>
+
+<table border="1">
+
+    <tr>
+        <th>Store Name</th>
+        <th>Overall Rating</th>
+        <th>Your Rating</th>
+        <th>Action</th>
+    </tr>
+
+    {% for store in stores %}
+
+    <tr>
+
+        <td>{{ store.name }}</td>
+
+        <td>{{ store.overall_rating }}</td>
+
+        <td>{{ store.user_rating }}</td>
+
+        <td>
+            <a href="/user/store/{{ store.id }}">
+                View
+            </a>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<br>
+
+<a href="/user/dashboard">Back</a>
+
+{% endblock %}

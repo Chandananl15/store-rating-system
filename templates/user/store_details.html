@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+Store Details
+{% endblock %}
+
+{% block content %}
+
+<h1>Store Details</h1>
+
+<hr>
+
+<p>
+<b>Store Name:</b>
+{{ store.name }}
+</p>
+
+<p>
+<b>Email:</b>
+{{ store.email }}
+</p>
+
+<p>
+<b>Address:</b>
+{{ store.address }}
+</p>
+
+<p>
+<b>Overall Rating:</b>
+{{ overall_rating }}
+</p>
+
+<p>
+
+<b>Your Rating:</b>
+
+{% if user_rating == "Not Rated" %}
+
+{{ user_rating }}
+
+{% else %}
+
+{% for i in range(user_rating) %}
+⭐
+{% endfor %}
+
+{% endif %}
+
+</p>
+
+<br>
+
+<a href="/user/rate/{{ store.id }}">
+    {{ action }}
+</a>
+
+<br><br>
+
+<a href="/user/stores">
+    Back to Stores
+</a>
+
+{% endblock %}

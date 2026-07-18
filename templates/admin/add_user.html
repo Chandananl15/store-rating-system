@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add User</title>
+</head>
+
+<body>
+
+<h2>Add User</h2>
+
+{% if error %}
+
+<p style="color:red;">
+    {{ error }}
+</p>
+
+{% endif %}
+
+<form method="POST" action="/admin/add-user">
+
+
+    <label>Name</label><br>
+    <input
+        type="text"
+        name="name"
+        required
+    >
+    <br><br>
+
+    <label>Email</label><br>
+    <input
+        type="email"
+        name="email"
+        required
+    >
+    <br><br>
+
+    <label>Password</label><br>
+    <input
+        type="password"
+        name="password"
+        required
+    >
+    <br><br>
+
+    <label>Address</label><br>
+    <textarea
+        name="address"
+        rows="4"
+        cols="30"
+        required
+    ></textarea>
+
+    <br><br>
+
+    <label>Role</label><br>
+
+    <select name="role">
+
+        <option value="USER">
+            Normal User
+        </option>
+
+        <option value="ADMIN">
+            Admin
+        </option>
+
+        <option value="OWNER">
+            Store Owner
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+
+        Create User
+
+    </button>
+
+</form>
+
+</body>
+
+</html>
