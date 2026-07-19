@@ -125,16 +125,36 @@ https://store-rating-system-bm11.onrender.com
 
 ---
 
-## Future Enhancements
+## 📝 Note
 
-- Email verification
-- Password reset
-- Store images
-- Rating analytics dashboard
-- REST API
-- Docker support
+The application opens on the **Login** page by default.
 
----
+To create a new user account, visit:
+
+```
+/signup
+```
+
+Example:
+
+```
+https://your-app-name.onrender.com/signup
+```
+
+After signing up, log in using your registered email and password.
+
+## 🔑 Demo Accounts
+
+### Admin
+Email: admin@example.com
+Password: ********
+
+### Store Owner
+Email: owner@example.com
+Password: ********
+
+### User
+Create a new account using the `/signup` page.
 
 ## Author
 
