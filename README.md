@@ -147,11 +147,10 @@ After signing up, log in using your registered email and password.
 
 ### Admin
 Email: admin@example.com
-Password: ********
+Password: Admin@123
 
-### Store Owner
-Email: owner@example.com
-Password: ********
+Admin can create new store-owner and user also so no demo accounts for that 
+
 
 ### User
 Create a new account using the `/signup` page.
