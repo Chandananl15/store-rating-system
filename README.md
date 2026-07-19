@@ -1,6 +1,6 @@
 # 🏪 Store Rating System
 
-A full-stack Store Rating System built using Flask, MySQL, SQLAlchemy, and Jinja2. The application allows users to rate stores while providing separate dashboards for Admins, Store Owners, and Users.
+A Backend Store Rating System built using Flask, MySQL, SQLAlchemy, and Jinja2. The application allows users to rate stores while providing separate dashboards for Admins, Store Owners, and Users.
 
 ---
 
