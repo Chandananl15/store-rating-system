@@ -20,16 +20,6 @@ from utils.validators import (
 auth_bp = Blueprint("auth", __name__)
 
 
-# ==========================
-# Home
-# ==========================
-
-from flask import redirect
-
-@app.route("/")
-def home():
-    return redirect("/login")
-
 
 # ==========================
 # Login
