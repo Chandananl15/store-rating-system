@@ -1,14 +1,14 @@
 # 🏪 Store Rating System
 
-A full-stack **Store Rating System** built using **Flask**, **MySQL**, **SQLAlchemy**, and **Flask-Login** with secure authentication and role-based access control.
+A full-stack **Store Rating System** built using **Flask**, **MySQL**, **SQLAlchemy**, and **Flask-Login** with secure authentication, **Email-based Two-Factor Authentication (2FA)**, and **Role-Based Access Control (RBAC)**.
 
-The application allows users to register, browse stores, submit ratings, and update their ratings. It also provides dedicated dashboards for **Admins**, **Store Owners**, and **Users**.
+The application enables users to discover stores, submit and update ratings, while providing dedicated dashboards for **Admins**, **Store Owners**, and **Users** with secure role-based access.
 
 ---
 
 # 🚀 Live Demo
 
-**Live Application:**
+**Live Application**
 
 > https://YOUR-RENDER-LINK.onrender.com
 
@@ -16,63 +16,130 @@ The application allows users to register, browse stores, submit ratings, and upd
 
 # ✨ Features
 
+## 🔐 Authentication & Security
+
+- User Registration
+- Secure Login & Logout
+- Password Hashing using Werkzeug
+- Email-based Two-Factor Authentication (2FA)
+- 6-Digit OTP Verification
+- OTP Expiry (5 Minutes)
+- OTP Resend Functionality
+- Maximum OTP Attempt Limit
+- Session-Based Authentication
+- Role-Based Access Control (RBAC)
+- Protected Routes using Flask-Login
+- Secure Email Delivery using Gmail SMTP
+
+---
+
 ## 👨‍💼 Admin
 
-- Secure login
+- Secure Login with 2FA
 - Dashboard with system statistics
-- Add, edit, and delete stores
-- Add, edit, and delete users
+- Add, Edit and Delete Users
+- Add, Edit and Delete Stores
 - Assign Store Owners
 - View all submitted ratings
+- Manage the entire application
 
 ---
 
 ## 👤 User
 
-- Create a new account
-- Secure login/logout
-- Browse stores
-- Search stores
-- Submit ratings
-- Update existing ratings
-- View personal ratings
+- Create a New Account
+- Secure Login with 2FA
+- Browse Stores
+- Search Stores
+- Submit Ratings
+- Update Existing Ratings
+- View Personal Ratings
+- Logout Securely
 
 ---
 
 ## 🏬 Store Owner
 
-- Secure login
-- View owned store
-- View average store rating
-- View all ratings submitted by users
+- Secure Login with 2FA
+- View Assigned Store
+- View Average Store Rating
+- View All Ratings Submitted by Users
+- Monitor Store Performance
+
+---
+
+# 🔒 Authentication Flow
+
+```text
+                 Login
+                   │
+                   ▼
+        Verify Email & Password
+                   │
+                   ▼
+          Generate 6-Digit OTP
+                   │
+                   ▼
+         Send OTP via Gmail SMTP
+                   │
+                   ▼
+          User Enters the OTP
+                   │
+                   ▼
+             Verify OTP
+                   │
+                   ▼
+          Create User Session
+                   │
+                   ▼
+ Redirect Based on User Role
+(Admin / Store Owner / User)
+```
+
+---
+
+# 🛡 Security Features
+
+- Password Hashing using Werkzeug
+- Email-based Two-Factor Authentication (2FA)
+- Session-Based Authentication
+- Role-Based Access Control (RBAC)
+- OTP Expiration
+- OTP Attempt Limitation
+- OTP Resend Support
+- Protected Routes with Flask-Login
+- Secure Email Communication using Gmail SMTP
 
 ---
 
 # 🛠 Tech Stack
 
-### Backend
+## Backend
 
 - Flask
 - SQLAlchemy
 - Flask-Login
+- Flask-Mail
 - PyMySQL
+- Werkzeug Security
 
-### Database
+## Database
 
-- MySQL (Aiven Cloud Database)
+- MySQL
+- Aiven Cloud MySQL
 
-### Frontend
+## Frontend
 
-- HTML
-- CSS
+- HTML5
+- CSS3
 - Bootstrap
 - Jinja2 Templates
 
-### Deployment
+## Deployment
 
 - Render
 
-### Version Control
+## Version Control
 
 - Git
 - GitHub
@@ -81,12 +148,13 @@ The application allows users to register, browse stores, submit ratings, and upd
 
 # 📂 Project Structure
 
-```
+```text
 Store-Rating-System/
 │
 ├── constants/
 ├── models/
 ├── routes/
+├── services/
 ├── static/
 ├── templates/
 ├── utils/
@@ -95,44 +163,49 @@ Store-Rating-System/
 ├── config.py
 ├── requirements.txt
 ├── .env.example
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
 
 # ⚙️ Installation
 
-## 1️⃣ Clone the Repository
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Store-Rating-System.git
-```
-
-## 2️⃣ Navigate to the Project
-
-```bash
-cd Store-Rating-System
-```
-
-## 3️⃣ Create a Virtual Environment
-
-Windows
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-Linux / macOS
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
+git clone https://github.com/Chandananl15/store-rating-system.git
 ```
 
 ---
 
-## 4️⃣ Install Dependencies
+## 2. Navigate to the Project
+
+```bash
+cd store-rating-system
+```
+
+---
+
+## 3. Create a Virtual Environment
+
+### Windows
+
+```bash
+python -m venv env
+env\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+python3 -m venv env
+source env/bin/activate
+```
+
+---
+
+## 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -142,9 +215,7 @@ pip install -r requirements.txt
 
 # 🔐 Environment Variables
 
-Create a file named **`.env`** in the project's root directory.
-
-Add the following variables:
+Create a `.env` file in the project root.
 
 ```env
 DB_HOST=
@@ -152,45 +223,47 @@ DB_PORT=
 DB_NAME=
 DB_USER=
 DB_PASSWORD=
+
 SECRET_KEY=
+
+MAIL_SERVER=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USE_TLS=True
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_DEFAULT_SENDER=
 ```
 
-⚠️ **Do not commit your `.env` file to GitHub.**
+> ⚠️ Never commit your `.env` file or credentials to GitHub.
 
 ---
 
-# 📌 Where to Get the Environment Variables
+# 📌 Database Configuration
 
-## Database Credentials
+This project uses **Aiven Cloud MySQL**.
 
-This project uses **Aiven MySQL**.
-
-Login to your Aiven account.
-
-Open your MySQL service.
-
-Copy the following values:
+Copy the following details from your Aiven dashboard:
 
 | Variable | Description |
 |----------|-------------|
-| DB_HOST | Host |
-| DB_PORT | Port |
+| DB_HOST | Database Host |
+| DB_PORT | Database Port |
 | DB_NAME | Database Name |
-| DB_USER | Username |
-| DB_PASSWORD | Password |
+| DB_USER | Database Username |
+| DB_PASSWORD | Database Password |
 
 ---
 
-## SECRET_KEY
+# 🔑 Generate SECRET_KEY
 
-Generate a secure secret key using Python:
+Run the following command:
 
 ```python
 import secrets
 print(secrets.token_hex(32))
 ```
 
-Copy the generated value into:
+Example:
 
 ```env
 SECRET_KEY=your_generated_secret_key
@@ -204,7 +277,7 @@ SECRET_KEY=your_generated_secret_key
 python app.py
 ```
 
-The application will run on:
+Application runs at:
 
 ```
 http://127.0.0.1:5000
@@ -212,47 +285,51 @@ http://127.0.0.1:5000
 
 ---
 
-# 🧪 How to Use
+# 🧪 Usage
 
-When the application starts, you'll be redirected to the **Login** page.
+## New Users
 
-### New Users
-
-If you don't have an account, visit:
+Visit
 
 ```
 /signup
 ```
 
-Example:
-
-```
-https://YOUR-RENDER-LINK.onrender.com/signup
-```
-
-Create a new account and then log in using your registered email and password.
+Create a new account using your email and password.
 
 ---
 
-# 🔑 Demo Accounts (Optional)
+## Existing Users
 
-If you have created demo accounts, you can add them here.
+1. Login using Email and Password.
+2. Receive a 6-digit OTP via email.
+3. Enter the OTP.
+4. Access the dashboard based on your role.
 
-### Admin
+---
+
+# 👥 Demo Accounts
+
+## Admin
 
 ```
 Email: admin@example.com
-Password:Admin@123
+Password: Admin@123
 ```
 
-### Store Owner
+---
 
-Admin can create new store owner
-login using admin then create store owner and use that
+## Store Owner
 
-### User
+Store Owners are created by the Admin.
 
-Create a new account using:
+Login using the credentials assigned by the administrator.
+
+---
+
+## User
+
+Create a new account via:
 
 ```
 /signup
@@ -262,23 +339,24 @@ Create a new account using:
 
 # 🌐 Deployment
 
-The application is deployed on **Render**.
-
-Database is hosted on **Aiven MySQL Cloud**.
+- Render (Web Application)
+- Aiven Cloud MySQL (Database)
+- Gmail SMTP (Email OTP Service)
 
 ---
 
-
 # 🚀 Future Enhancements
 
-- Password Reset
-- Email Verification
+- Email Verification During Signup
+- Forgot Password via Email
+- Password Reset using Secure Token
 - Store Images
 - Rating Analytics Dashboard
 - REST API
 - Docker Support
 - JWT Authentication
 - Responsive UI Improvements
+- Admin Activity Logs
 
 ---
 
@@ -292,7 +370,7 @@ Feel free to fork the repository and submit a pull request.
 
 # 📄 License
 
-This project is intended for educational and learning purposes.
+This project is developed for educational and learning purposes.
 
 ---
 
@@ -300,12 +378,16 @@ This project is intended for educational and learning purposes.
 
 **Chandana N L**
 
-GitHub:
+**GitHub**
+
 https://github.com/Chandananl15
 
-LinkedIn:
+**LinkedIn**
+
 https://www.linkedin.com/in/chandu15/
 
 ---
 
-⭐ If you found this project useful, consider giving it a **Star** on GitHub!
+## ⭐ Support
+
+If you found this project useful, please consider giving it a ⭐ on GitHub.
