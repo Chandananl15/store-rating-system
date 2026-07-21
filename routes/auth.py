@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash
+from flask import Blueprint, render_template, request, redirect, flash, session 
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -6,6 +6,14 @@ from flask_login import login_user, logout_user
 
 from models import db
 from models.user import User
+
+from services.email_service import send_otp_email
+from services.otp_service import (
+    generate_otp,
+    save_otp,
+    verify_otp,
+    clear_otp,
+)
 
 from constants.roles import ADMIN, OWNER, USER
 
@@ -43,19 +51,23 @@ def login():
             flash("Invalid Password", "danger")
             return redirect("/login")
 
-        login_user(user)
+        # Generate OTP
+        otp = generate_otp()
 
-        if user.role == ADMIN:
-            return redirect("/admin/dashboard")
+        # Save OTP in session
+        save_otp(user.id, otp)
 
-        elif user.role == OWNER:
-            return redirect("/owner/dashboard")
+        # Store user temporarily
+        session["pending_user_id"] = user.id
 
-        else:
-            return redirect("/user/dashboard")
+        # Send OTP Email
+        send_otp_email(user.email, otp)
+
+        flash("OTP sent to your registered email.", "success")
+
+        return redirect("/verify-otp")
 
     return render_template("login.html")
-
 
 # ==========================
 # Signup
@@ -114,6 +126,68 @@ def signup():
 
     return render_template("signup.html")
 
+
+@auth_bp.route("/verify-otp", methods=["GET", "POST"])
+def verify_otp_page():
+
+    pending_user_id = session.get("pending_user_id")
+
+    if not pending_user_id:
+        flash("Please login first.", "warning")
+        return redirect("/login")
+
+    user = User.query.get(pending_user_id)
+
+    if request.method == "POST":
+
+        entered_otp = request.form["otp"]
+
+        is_valid, message = verify_otp(user.id, entered_otp)
+
+        if not is_valid:
+            flash(message, "danger")
+            return redirect("/verify-otp")
+
+        session.pop("pending_user_id", None)
+
+        login_user(user)
+
+        flash("Login successful!", "success")
+
+        if user.role == ADMIN:
+            return redirect("/admin/dashboard")
+
+        elif user.role == OWNER:
+            return redirect("/owner/dashboard")
+
+        else:
+            return redirect("/user/dashboard")
+
+    return render_template("verify_otp.html")
+
+
+@auth_bp.route("/resend-otp")
+def resend_otp():
+
+    pending_user_id = session.get("pending_user_id")
+
+    if not pending_user_id:
+        flash("Please login first.", "warning")
+        return redirect("/login")
+
+    user = User.query.get(pending_user_id)
+
+    clear_otp()
+
+    otp = generate_otp()
+
+    save_otp(user.id, otp)
+
+    send_otp_email(user.email, otp)
+
+    flash("A new OTP has been sent to your email.", "success")
+
+    return redirect("/verify-otp")
 
 # ==========================
 # Logout

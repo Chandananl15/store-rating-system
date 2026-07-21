@@ -9,7 +9,8 @@ from routes.auth import auth_bp
 from routes.admin import admin_bp
 from routes.user import user_bp
 from routes.owner import owner_bp
-
+from services.email_service import mail
+from flask_login import LoginManager
 login_manager = LoginManager()
 
 
@@ -18,16 +19,23 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+
+
+
 def create_app():
     app = Flask(__name__)
 
     # Load configuration
     app.config.from_object(Config)
+    print("MAIL_USERNAME:", app.config["MAIL_USERNAME"])
+    print("MAIL_PASSWORD:", app.config["MAIL_PASSWORD"])
+    print("MAIL_SERVER:", app.config["MAIL_SERVER"])
+    print("MAIL_PORT:", app.config["MAIL_PORT"])
 
     # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
-
+    mail.init_app(app)
     login_manager.login_view = "auth.login"
 
     # Register blueprints
